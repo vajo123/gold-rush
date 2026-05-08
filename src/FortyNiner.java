@@ -105,4 +105,21 @@ public class FortyNiner {
             }
         }
     }
+
+    public void buyCradles(Scanner sc) {
+        System.out.println("How many cradles to buy? ($30 each)");
+        int n = sc.nextInt();
+
+        int totalCost = n * 30;
+
+        if (money >= totalCost) {
+            for (int i = 0; i < n; i++) {
+                tools.add(new Cradle());
+            }
+            money -= totalCost;
+            System.out.println("Bought " + n + " cradles.");
+        } else {
+            System.out.println("Not enough money!");
+        }
+    }
 }
