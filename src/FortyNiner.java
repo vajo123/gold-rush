@@ -90,9 +90,11 @@ public class FortyNiner {
         int gain = 5 + rnd.nextInt(46);
 
         money -= cost;
+        int before = endurance;
         setEndurance(endurance + gain);
+        int actualGain = endurance - before;
 
-        System.out.println("Saloon: -" + cost + "$, +" + gain + "% endurance");
+        System.out.println("Saloon: -" + cost + "$, +" + actualGain + "% endurance");
     }
 
     private void fixSluice() {
