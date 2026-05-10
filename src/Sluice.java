@@ -11,9 +11,15 @@ public class Sluice extends Tool{
             return 0;
         }
 
+        int currentDurability = getDurability();
         int earnings = getRnd().nextInt(501);
         int loss = 20 + getRnd().nextInt(31);
-        setDurability(getDurability() - loss);
+
+        if (loss > currentDurability) {
+            earnings = (int) Math.round(earnings * (double) currentDurability / loss);
+        }
+
+        setDurability(currentDurability - loss);
         System.out.println("Sluice earned: $" + earnings + " ,durability now: " + getDurability() + "%");
         return earnings;
     }
