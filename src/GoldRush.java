@@ -6,6 +6,7 @@ public class GoldRush {
     private FortyNiner fortyNiner;
     private File savedGame = new File("gold-rush.txt");
     private int currentWeek = 1;
+    private boolean justLoaded = false;
 
     public void survive() {
         Scanner sc = new Scanner(System.in);
@@ -17,9 +18,24 @@ public class GoldRush {
         for (int i = currentWeek; i <= 20; i++) {
             System.out.println("\n=== WEEK " + i + " ===");
 
-            fortyNiner.useTools();
-            fortyNiner.buyFood();
-            fortyNiner.loseEndurance();
+            if (justLoaded) {
+                System.out.println("Endurance:  " + fortyNiner.getEndurance() + "%");
+                System.out.println("Money:      $" + fortyNiner.getMoney());
+                System.out.println("--- Tools ---");
+                for (Tool t : fortyNiner.getTools()) {
+                    if (t instanceof Sluice) {
+                        System.out.println("Sluice     durability: " + t.getDurability() + "%");
+                    }
+                    if (t instanceof Cradle) {
+                        System.out.println("Cradle     durability: " + t.getDurability() + "%");
+                    }
+                }
+                justLoaded = false;
+            } else {
+                fortyNiner.useTools();
+                fortyNiner.buyFood();
+                fortyNiner.loseEndurance();
+            }
 
             System.out.println("Do you want to save and exit? (y/n)");
             String ans = sc.next();
@@ -71,6 +87,7 @@ public class GoldRush {
                 }
             }
 
+            justLoaded = true;
             System.out.println("Game loaded!");
 
         } catch (Exception e) {
